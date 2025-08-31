@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree Analysis Report - Internship Project</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .image-placeholder {
+            border: 2px dashed #3498db;
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-placeholder h4 {
+            color: #3498db;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .image-placeholder p {
+            color: #7f8c8d;
+            margin: 0;
+            font-style: italic;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .metric-card h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .insight-box {
+            background-color: #e8f5e8;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .insight-box strong {
+            color: #27ae60;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .conclusion-section {
+            background-color: #f1f2f6;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        @media print {
+            body { background-color: white; }
+            .container { box-shadow: none; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Decision Tree Analysis Report - Internship Project</h1>
+        
+        <div style="text-align: center; margin-bottom: 30px; color: #7f8c8d;">
+            <p><strong>Project:</strong> Customer Purchase Prediction using Decision Tree Classification</p>
+            <p><strong>Dataset Size:</strong> 400 samples | <strong>Features:</strong> Gender, Age, EstimatedSalary</p>
+            <p><strong>Target:</strong> Purchase Decision (Binary Classification)</p>
+        </div>
+
+        <h2>1. Dataset Overview and Distribution Analysis</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>📊 Dataset Statistics and Distribution Plots</h4>
+            <img src="images/image1_dataset_overview.png.png" alt="Dataset Overview" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Dataset info showing 400 samples, age and salary distributions</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Dataset Statistics</h4>
+                <ul>
+                    <li><strong>Total Records:</strong> 400 samples</li>
+                    <li><strong>Features:</strong> Gender, Age, EstimatedSalary</li>
+                    <li><strong>Target:</strong> Purchased (0 = No, 1 = Yes)</li>
+                    <li><strong>Data Type:</strong> Mixed (categorical + numerical)</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Class Distribution</h4>
+                <ul>
+                    <li><strong>No Purchase (0):</strong> 257 samples (64.25%)</li>
+                    <li><strong>Purchase (1):</strong> 143 samples (35.75%)</li>
+                    <li><strong>Class Imbalance:</strong> Moderate (1.8:1 ratio)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Key Insight:</strong> The age distribution shows a normal distribution centered around 35-40 years, while salary distribution is relatively uniform across income levels from $20,000 to $150,000. The dataset has a moderate class imbalance favoring non-purchasers.
+        </div>
+
+        <h2>2. Exploratory Data Analysis - Purchase Patterns</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>📈 Age vs Purchase Box Plot</h4>
+            <img src="images/image2_age_vs_purchase.png.png" alt="Age vs Purchase Analysis" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Box plot showing age distribution differences between purchasers and non-purchasers</p>
+        </div>
+
+        <h3>Age vs Purchase Behavior Analysis:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Non-purchasers (Class 0)</h4>
+                <ul>
+                    <li>Median age: ~34 years</li>
+                    <li>Age range: 18-58 years</li>
+                    <li>Distribution: Wider, younger skewed</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Purchasers (Class 1)</h4>
+                <ul>
+                    <li>Median age: ~47 years</li>
+                    <li>Age range: 27-60 years</li>
+                    <li>Distribution: More concentrated, older</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>💰 Salary vs Purchase Box Plot</h4>
+            <img src="images/image3_salary_vs_purchase.png.png" alt="Salary vs Purchase Analysis" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Box plot showing salary distribution differences between purchasers and non-purchasers</p>
+        </div>
+
+        <h3>Salary vs Purchase Behavior Analysis:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Non-purchasers (Class 0)</h4>
+                <ul>
+                    <li>Median salary: ~$62,000</li>
+                    <li>Contains high-income outliers</li>
+                    <li>Wider income distribution</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Purchasers (Class 1)</h4>
+                <ul>
+                    <li>Median salary: ~$93,000</li>
+                    <li>More consistent high-income</li>
+                    <li>Concentrated in upper income range</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Key Insights:</strong> Clear patterns emerge - older customers (47+ years median) with higher salaries ($93,000 median) show significantly higher purchase propensity. Age appears to be a stronger discriminator than salary alone.
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>3. Model Performance - Baseline Results</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>🎯 Classification Report and Confusion Matrix (Baseline)</h4>
+            <img src="images/image4_baseline_performance.png.png" alt="Baseline Model Performance" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Baseline model showing 88% accuracy with detailed precision, recall, and confusion matrix</p>
+        </div>
+
+        <h3>Baseline Model Performance Metrics:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Overall Performance</h4>
+                <ul>
+                    <li><strong>Accuracy:</strong> 88% (88/100 test samples)</li>
+                    <li><strong>Macro Average F1:</strong> 0.87</li>
+                    <li><strong>Weighted Average F1:</strong> 0.88</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Class-wise Metrics</h4>
+                <ul>
+                    <li><strong>Class 0 (No Purchase):</strong>
+                        <br>Precision: 92%, Recall: 89%, F1: 90%</li>
+                    <li><strong>Class 1 (Purchase):</strong>
+                        <br>Precision: 82%, Recall: 86%, F1: 84%</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Confusion Matrix Analysis:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Prediction Breakdown</h4>
+                <ul>
+                    <li><strong>True Negatives:</strong> 57 (correctly predicted non-purchases)</li>
+                    <li><strong>False Positives:</strong> 7 (incorrectly predicted purchases)</li>
+                    <li><strong>False Negatives:</strong> 5 (missed actual purchases)</li>
+                    <li><strong>True Positives:</strong> 31 (correctly predicted purchases)</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Error Analysis</h4>
+                <ul>
+                    <li><strong>Type I Error Rate:</strong> 10.9% (7/64)</li>
+                    <li><strong>Type II Error Rate:</strong> 13.9% (5/36)</li>
+                    <li><strong>Overall Error Rate:</strong> 12% (12/100)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Model Interpretation:</strong> The baseline model demonstrates strong performance with excellent balance between precision and recall. Low false positive rate (7) indicates good specificity, while low false negative rate (5) shows good sensitivity.
+        </div>
+
+        <h2>4. Hyperparameter Tuning Results</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>⚙️ Tuned Model Results and Best Parameters</h4>
+            <img src="images/image5_tuned_model.png.png" alt="Tuned Model Results" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Hyperparameter tuning results with optimal parameters and maintained 88% accuracy</p>
+        </div>
+
+        <h3>Hyperparameter Optimization:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Best Parameters Found</h4>
+                <ul>
+                    <li><strong>class_weight:</strong> None</li>
+                    <li><strong>criterion:</strong> 'gini'</li>
+                    <li><strong>max_depth:</strong> 3</li>
+                    <li><strong>min_samples_leaf:</strong> 1</li>
+                    <li><strong>min_samples_split:</strong> 2</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Tuning Results</h4>
+                <ul>
+                    <li><strong>Tuned Accuracy:</strong> 88% (maintained)</li>
+                    <li><strong>Performance Stability:</strong> Identical results</li>
+                    <li><strong>Model Complexity:</strong> Optimal at depth 3</li>
+                    <li><strong>Overfitting:</strong> No evidence detected</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Key Finding:</strong> The baseline model was already well-optimized. The simple decision tree structure (max_depth=3) proves sufficient for this dataset, indicating the decision boundaries are naturally simple and interpretable.
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>5. ROC Curve Analysis</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>📈 ROC Curve</h4>
+            <img src="images/image6_roc_curve.png.png" alt="ROC Curve Analysis" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">ROC curve demonstrating excellent model discrimination with AUC = 0.89</p>
+        </div>
+
+        <h3>ROC Curve Interpretation:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Discrimination Ability</h4>
+                <ul>
+                    <li><strong>AUC Score:</strong> 0.89 (Excellent)</li>
+                    <li><strong>Model Quality:</strong> High discrimination power</li>
+                    <li><strong>Random Baseline:</strong> 0.50 (significantly outperformed)</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Performance Interpretation</h4>
+                <ul>
+                    <li><strong>Curve Shape:</strong> Strong upward trend</li>
+                    <li><strong>False Positive Rate:</strong> Well controlled</li>
+                    <li><strong>Clinical Significance:</strong> Reliable predictions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Business Impact:</strong> The AUC of 0.89 indicates the model can effectively distinguish between likely purchasers and non-purchasers with 89% probability of correctly ranking a random purchaser higher than a random non-purchaser.
+        </div>
+
+        <h2>6. Feature Importance Analysis</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>🏆 Feature Importance Chart</h4>
+            <img src="images/image7_feature_importance.png.png" alt="Feature Importance Analysis" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Feature importance showing Age as the most critical predictor (55%) followed by EstimatedSalary (45%)</p>
+        </div>
+
+        <h3>Decision Tree Feature Ranking:</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Feature Importance Scores</h4>
+                <ol>
+                    <li><strong>Age:</strong> ~55% importance</li>
+                    <li><strong>EstimatedSalary:</strong> ~45% importance</li>
+                    <li><strong>Gender:</strong> ~0% importance</li>
+                </ol>
+            </div>
+            <div class="metric-card">
+                <h4>Business Implications</h4>
+                <ul>
+                    <li><strong>Primary Driver:</strong> Customer age is the strongest predictor</li>
+                    <li><strong>Secondary Factor:</strong> Income provides additional discrimination</li>
+                    <li><strong>Gender Neutrality:</strong> No gender bias in purchasing behavior</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Strategic Insight:</strong> Age-based targeting should be the primary marketing strategy, with income-based segmentation as a secondary consideration. Gender-neutral campaigns are appropriate for this market.
+        </div>
+
+        <h2>7. Decision Tree Structure - Visual Analysis</h2>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <h4>🌳 Complete Decision Tree Visualization</h4>
+            <img src="images/image8_decision_tree.png.png" alt="Decision Tree Structure" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; color: #666; margin-top: 10px;">Complete decision tree showing all decision nodes, splits, and leaf classifications</p>
+        </div>
+        <h3>Decision Tree Structure Analysis:</h3>
+
+        <h4>Root Node Decision:</h4>
+        <div class="metric-card">
+            <h4>Primary Split: Age ≤ 44.5 years</h4>
+            <ul>
+                <li><strong>Logic:</strong> Separates younger (lower purchase probability) from older customers</li>
+                <li><strong>Samples:</strong> 300 total at root</li>
+                <li><strong>Gini Impurity:</strong> 0.459 (moderate class mixing)</li>
+            </ul>
+        </div>
+
+        <h4>Secondary Decision Rules:</h4>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Left Branch (Age ≤ 44.5)</h4>
+                <ul>
+                    <li><strong>Next Split:</strong> EstimatedSalary ≤ $89,500</li>
+                    <li><strong>Pattern:</strong> Younger customers need higher income to purchase</li>
+                    <li><strong>Samples:</strong> 219 customers</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Right Branch (Age > 44.5)</h4>
+                <ul>
+                    <li><strong>Next Split:</strong> EstimatedSalary ≤ $41,500</li>
+                    <li><strong>Pattern:</strong> Older customers purchase even with moderate income</li>
+                    <li><strong>Samples:</strong> 81 customers</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>Key Decision Paths:</h4>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>High Purchase Probability</h4>
+                <ul>
+                    <li><strong>Rule:</strong> Age > 44.5 AND Salary > $41,500</li>
+                    <li><strong>Outcome:</strong> Strong "Yes" prediction</li>
+                    <li><strong>Business Logic:</strong> Mature, financially stable customers</li>
+                </ul>
+            </div>
+            <div class="metric-card">
+                <h4>Low Purchase Probability</h4>
+                <ul>
+                    <li><strong>Rule:</strong> Age ≤ 44.5 AND Salary ≤ $89,500</li>
+                    <li><strong>Outcome:</strong> Strong "No" prediction</li>
+                    <li><strong>Business Logic:</strong> Younger customers with limited purchasing power</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="conclusion-section">
+            <h2>Conclusions and Business Recommendations</h2>
+
+            <h3>🔍 Key Research Findings:</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Primary Discovery</h4>
+                    <p><strong>Age is the strongest predictor</strong> of purchase behavior, with a critical threshold at 44.5 years. Customers above this age show dramatically higher purchase rates.</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Secondary Pattern</h4>
+                    <p><strong>Income thresholds vary by age group:</strong> Younger customers need higher incomes ($89,500+) while older customers purchase with moderate incomes ($41,500+).</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Demographic Insight</h4>
+                    <p><strong>Gender neutrality confirmed:</strong> No gender-based purchasing differences detected, enabling equal opportunity targeting.</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Model Reliability</h4>
+                    <p><strong>Excellent predictive performance:</strong> 88% accuracy with 0.89 AUC demonstrates reliable business application potential.</p>
+                </div>
+            </div>
+
+            <h3>💼 Business Applications:</h3>
+            <ol>
+                <li><strong>Targeted Marketing Campaigns:</strong> Focus primary marketing efforts on customers aged 45+ with incomes above $42,000</li>
+                <li><strong>Customer Segmentation:</strong> Implement age-based segmentation with income sub-segments for personalized approaches</li>
+                <li><strong>Resource Allocation:</strong> Prioritize marketing budget allocation to high-probability customer segments</li>
+                <li><strong>Product Development:</strong> Design age-appropriate products and messaging strategies</li>
+                <li><strong>Sales Strategy:</strong> Train sales teams to recognize high-value prospects using decision tree criteria</li>
+            </ol>
+
+            <h3>📊 Model Validation Summary:</h3>
+            <ul>
+                <li><strong>Statistical Significance:</strong> 88% accuracy with robust cross-validation</li>
+                <li><strong>Business Relevance:</strong> Decision rules align with market intuition</li>
+                <li><strong>Implementation Ready:</strong> Simple, interpretable rules suitable for business deployment</li>
+                <li><strong>Scalability:</strong> Model structure supports easy integration into existing systems</li>
+            </ul>
+
+            <h3>🚀 Next Steps Recommendations:</h3>
+            <ol>
+                <li>Deploy model for real-time customer scoring</li>
+                <li>A/B test marketing campaigns using model segments</li>
+                <li>Collect additional features for model enhancement</li>
+                <li>Monitor model performance with new data</li>
+                <li>Expand analysis to include customer lifetime value</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <p><strong>Report Generated:</strong> Decision Tree Analysis - Internship Project</p>
+            <p><strong>Model Type:</strong> Decision Tree Classifier with Gini Criterion</p>
+            <p><strong>Dataset:</strong> Customer Purchase Prediction (400 samples)</p>
+            <p><strong>Performance:</strong> 88% Accuracy | 0.89 AUC | Production-Ready</p>
+        </div>
+    </div>
+</body>
+</html>
